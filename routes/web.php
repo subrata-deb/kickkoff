@@ -26,3 +26,13 @@ Route::get('/contact-us', function () {
 Route::get('/tasklist', function () {
     return view('tasklist');
 });
+
+Route::get('/messages', function () {
+    return view('tasklist');
+});
+
+
+Route::get('/messages', 'MessageController@getMessages');
+Route::post('contact-us/submit', 'MessageController@submit');
+    
+;
