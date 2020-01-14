@@ -1,5 +1,5 @@
 <?php
-
+use App\Task;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,16 +23,22 @@ Route::get('/contact-us', function () {
     return view('contact-us');
 });
 
-Route::get('/tasklist', function () {
+
+
+Route::post('/tasklist', function () {
     return view('tasklist');
 });
 
 Route::get('/messages', function () {
-    return view('tasklist');
+    return view('messages');
 });
 
-
+Route::get('/tasklist', 'TaskController@getTasks');
 Route::get('/messages', 'MessageController@getMessages');
 Route::post('contact-us/submit', 'MessageController@submit');
-    
-;
+Route::post('tasklist/submit', 'TaskController@submit');
+
+Route::delete('/tasklist/{taskid}', function ($taskid) {
+    Task::findOrFail($taskid)->delete();
+    return redirect('/tasklist')->with('deleted', 'Task deleted');
+});

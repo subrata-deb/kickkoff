@@ -11,3 +11,15 @@
         {{session('success')}}
     </div>
 @endif
+
+@if(session('task_success'))
+    <div class="alert alert-success">
+        {{session('task_success')}}
+    </div>
+@endif
+
+@if(session('deleted'))
+    <div class="alert alert-success">
+        {{session('deleted')}}
+    </div>
+@endif
