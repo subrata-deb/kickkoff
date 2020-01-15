@@ -38,7 +38,12 @@ Route::get('/messages', 'MessageController@getMessages');
 Route::post('contact-us/submit', 'MessageController@submit');
 Route::post('tasklist/submit', 'TaskController@submit');
 
+
 Route::delete('/tasklist/{taskid}', function ($taskid) {
     Task::findOrFail($taskid)->delete();
     return redirect('/tasklist')->with('deleted', 'Task deleted');
 });
+
+Route::patch('/messages/{taskid}', 'TaskController@directUpdateTask');
+Route::patch('/tasklist/{taskid}', 'TaskController@editTasks');
+Route::patch('/edit/{taskid}', 'TaskController@updateTask');

@@ -45,6 +45,7 @@
                                     <th>Priority</th>
                                     <th>Place</th>
                                     <th>Responsibility of</th>
+                                    <th>Direct Update</th>
                                     <th>Delete Button</th>
                                     <th>Update Button</th>
                                     
@@ -54,10 +55,20 @@
                                 @if(count($tasks) > 0)
                                     @foreach($tasks as $task)
                                 <tr>
-                                    <td>{{$task->taskname}}</td>
-                                    <td>{{$task->priority}}</td>
-                                    <td>{{$task->place}}</td>
-                                    <td>{{$task->responsibility}}</td>
+                                <form action="{{ url('messages/'.$task->id) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('PATCH') }}
+
+                                    <td>{{Form::text('taskname', $task->taskname, ['class' => 'form-control'] )}}</td>
+                                    <td>{{Form::text('priority', $task->priority, ['class' => 'form-control'] )}}</td>
+                                    <td>{{Form::text('place', $task->place, ['class' => 'form-control'] )}}</td>
+                                    <td>{{Form::text('responsibility', $task->responsibility, ['class' => 'form-control'] )}}</td>
+
+                                    <td><button type="submit" class="btn btn-danger">
+                                                    <i class="fa fa-btn fa-trash"></i>Direct Update
+                                            </button></td>
+                                </form></th>
+                                    
                                     <th><form action="{{ url('tasklist/'.$task->id) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
@@ -67,7 +78,14 @@
                                                 </button>
                                             </form>
                                     </th>
-                                    <th>{{Form::submit('Update' , ['class' => 'btn btn-primary'])}}</th>
+                                    <th><form action="{{ url('tasklist/'.$task->id) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('PATCH') }}
+
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fa fa-btn fa-trash"></i>Edit Page
+                                                </button>
+                                            </form></th>
                                 </tr>
                                     @endforeach
                                 @endif           

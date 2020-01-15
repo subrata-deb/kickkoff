@@ -29,6 +29,36 @@ class TaskController extends Controller
         return view('tasklist')->with('tasks', $tasks);
     }
 
+    public function editTasks($taskid){
+
+        $task = Task::find($taskid);
+        return view('edit')->with('task', $task);
+    }
+
+    public function updateTask(Request $request, $taskid){
+
+        $task = Task::find($taskid);
+        $task->taskname = $request->get('taskname');
+        $task->priority = $request->get('priority');
+        $task->place = $request->get('place');
+        $task->responsibility = $request->get('responsibility');
+
+        $task->save();
+        return redirect('/tasklist')->with('updated', 'Task Updated');
+
+    }
     
+    public function directUpdateTask(Request $request, $taskid){
+
+        $task = Task::find($taskid);
+        $task->taskname = $request->get('taskname');
+        $task->priority = $request->get('priority');
+        $task->place = $request->get('place');
+        $task->responsibility = $request->get('responsibility');
+
+        $task->save();
+        return redirect('/tasklist')->with('updated', 'Task Updated');
+
+    }
     
 }
