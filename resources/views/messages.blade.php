@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section ('title')
+Read All Messages!
+@endsection
+
 @section ('content')
     
 <div class="container">

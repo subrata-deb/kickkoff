@@ -29,3 +29,33 @@
         {{session('updated')}}
     </div>
 @endif
+
+@if(session('signup-success'))
+    <div class="alert alert-success">
+        {{session('signup-success')}}
+    </div>
+@endif
+
+@if(session('signin-success'))
+    <div class="alert alert-success">
+        {{session('signin-success')}}
+    </div>
+@endif
+
+@if(session('logout-success'))
+    <div class="alert alert-success">
+        {{session('logout-success')}}
+    </div>
+@endif
+
+@if(session('signin-faliure'))
+    <div class="alert alert-danger">
+        {{session('signin-faliure')}}
+    </div>
+@endif
+
+@if(session('login-first'))
+    <div class="alert alert-danger">
+        {{session('login-first')}}
+    </div>
+@endif

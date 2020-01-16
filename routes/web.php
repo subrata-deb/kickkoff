@@ -1,5 +1,7 @@
 <?php
 use App\Task;
+use App\Http\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,39 +13,51 @@ use App\Task;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::group(['middleware' => ['web']], function(){
+
+    Route::get('/', function () {
+        return view('home');
+    });
+
+    Route::get('/about', function () {
+        return view('about');
+    });
+
+    Route::get('/contact-us', function () {
+        return view('contact-us');
+    })->Middleware('authenticated');
+
+    Route::get('/signup', function () {
+        return view('signup');
+    });
+
+    Route::get('/login', function () {
+        return view('login');
+    });
+
+    Route::post('/tasklist', function () {
+        return view('tasklist');
+    });
+
+    Route::get('/messages', function () {
+        return view('messages');
+    });
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->Middleware('authenticated');
+
+    Route::get('/tasklist', 'TaskController@getTasks')->Middleware('authenticated');
+    Route::get('/messages', 'MessageController@getMessages')->Middleware('authenticated');
+    Route::post('contact-us/submit', 'MessageController@submit')->Middleware('authenticated');
+    Route::post('tasklist/submit', 'TaskController@submit')->Middleware('authenticated');
+
+    Route::delete('/tasklist/{taskid}', 'TaskController@deleteTask')->Middleware('authenticated');
+    Route::patch('/messages/{taskid}', 'TaskController@directUpdateTask')->Middleware('authenticated');
+    Route::patch('/tasklist/{taskid}', 'TaskController@editTasks')->Middleware('authenticated');
+    Route::patch('/edit/{taskid}', 'TaskController@updateTask')->Middleware('authenticated');
+    Route::post('signup', 'UserController@postSignUp');
+    Route::post('signin', 'UserController@postSignIn');
+    Route::post('logout', 'UserController@postLogout');
+
 });
-
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/contact-us', function () {
-    return view('contact-us');
-});
-
-
-
-Route::post('/tasklist', function () {
-    return view('tasklist');
-});
-
-Route::get('/messages', function () {
-    return view('messages');
-});
-
-Route::get('/tasklist', 'TaskController@getTasks');
-Route::get('/messages', 'MessageController@getMessages');
-Route::post('contact-us/submit', 'MessageController@submit');
-Route::post('tasklist/submit', 'TaskController@submit');
-
-
-Route::delete('/tasklist/{taskid}', function ($taskid) {
-    Task::findOrFail($taskid)->delete();
-    return redirect('/tasklist')->with('deleted', 'Task deleted');
-});
-
-Route::patch('/messages/{taskid}', 'TaskController@directUpdateTask');
-Route::patch('/tasklist/{taskid}', 'TaskController@editTasks');
-Route::patch('/edit/{taskid}', 'TaskController@updateTask');

@@ -60,5 +60,11 @@ class TaskController extends Controller
         return redirect('/tasklist')->with('updated', 'Task Updated');
 
     }
-    
+
+    public function deleteTask($taskid){
+
+        Task::findOrFail($taskid)->delete();
+        return redirect('/tasklist')->with('deleted', 'Task deleted');
+
+    }
 }

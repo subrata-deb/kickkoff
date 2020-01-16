@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section ('title')
+Contact Us Page!
+@endsection
+
 @section ('content')
     <h1>CONTACT US PAGE</h1>
 

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section ('title')
+Add and Update All Tasks
+@endsection
+
 @section ('content')
     <h1>Talk List</h1>
 

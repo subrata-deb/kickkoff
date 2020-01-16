@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section ('title')
+Welcome to Home page!
+@endsection
+
 @section ('content')
     
 <div class="container">
