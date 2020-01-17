@@ -25,8 +25,9 @@ class TaskController extends Controller
 
     public function getTasks(){
 
-        $tasks = Task::all();
+        $tasks = Task::orderby('created_at', 'desc')->get();
         return view('tasklist')->with('tasks', $tasks);
+        
     }
 
     public function editTasks($taskid){

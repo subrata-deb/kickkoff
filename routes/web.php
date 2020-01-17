@@ -43,21 +43,22 @@ Route::group(['middleware' => ['web']], function(){
         return view('messages');
     });
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->Middleware('authenticated');
 
+
+
+    Route::get('/dashboard', 'PostController@getDashboard')->Middleware('authenticated');
     Route::get('/tasklist', 'TaskController@getTasks')->Middleware('authenticated');
     Route::get('/messages', 'MessageController@getMessages')->Middleware('authenticated');
     Route::post('contact-us/submit', 'MessageController@submit')->Middleware('authenticated');
     Route::post('tasklist/submit', 'TaskController@submit')->Middleware('authenticated');
-
     Route::delete('/tasklist/{taskid}', 'TaskController@deleteTask')->Middleware('authenticated');
     Route::patch('/messages/{taskid}', 'TaskController@directUpdateTask')->Middleware('authenticated');
     Route::patch('/tasklist/{taskid}', 'TaskController@editTasks')->Middleware('authenticated');
     Route::patch('/edit/{taskid}', 'TaskController@updateTask')->Middleware('authenticated');
     Route::post('signup', 'UserController@postSignUp');
     Route::post('signin', 'UserController@postSignIn');
-    Route::post('logout', 'UserController@postLogout');
+    Route::get('logout', 'UserController@postLogout');
+    Route::post('/postdashboard', 'PostController@postCreatePost')->Middleware('authenticated');
+    Route::get('/post-delete/{postid}', 'PostController@deletePost')->Middleware('authenticated');
 
 });

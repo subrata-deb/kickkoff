@@ -59,3 +59,21 @@
         {{session('login-first')}}
     </div>
 @endif
+
+@if(session('your_post_success'))
+    <div class="alert alert-success">
+        {{session('your_post_success')}}
+    </div>
+@endif
+
+@if(session('post_deleted'))
+    <div class="alert alert-success">
+        {{session('post_deleted')}}
+    </div>
+@endif
+
+@if(session('cannot_delete'))
+    <div class="alert alert-danger">
+        {{session('cannot_delete')}}
+    </div>
+@endif

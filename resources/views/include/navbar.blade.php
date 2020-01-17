@@ -12,15 +12,8 @@
       @if (Auth::check())
       <li  class="{{Request::is('dashboard') ? 'active' : ''}}"><a href="/dashboard">Dashboard</a></li>
      
-     
-      <li><a href="{{ url('logout') }}"
-          onclick="event.preventDefault();
-          document.getElementById('logout-form').submit();">Logout</a>
-          <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
-                {{ csrf_field() }}
-          </form>
-      </li>
-
+      <li><a href="{{ url('logout') }}">Logout</a></li>
+      <li  class="{{Request::is('dashboard') ? 'active' : ''}}"><a href="/dashboard">{{ Auth::user()->fullname }}</a></li>
 
       @else
       <li  class="{{Request::is('Sign Up') ? 'active' : ''}}"><a href="/signup">Sign up</a></li>
