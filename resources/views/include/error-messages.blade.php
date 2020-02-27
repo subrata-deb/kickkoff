@@ -77,3 +77,12 @@
         {{session('cannot_delete')}}
     </div>
 @endif
+
+
+@if(session('account-update'))
+    <div class="alert alert-success">
+        {{session('account-update')}}
+    </div>
+@endif
+
+

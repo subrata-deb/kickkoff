@@ -12,8 +12,9 @@
       @if (Auth::check())
       <li  class="{{Request::is('dashboard') ? 'active' : ''}}"><a href="/dashboard">Dashboard</a></li>
      
-      <li><a href="{{ url('logout') }}">Logout</a></li>
       <li  class="{{Request::is('dashboard') ? 'active' : ''}}"><a href="/dashboard">{{ Auth::user()->fullname }}</a></li>
+      <li  class="{{Request::is('account') ? 'active' : ''}}"><a href="/account">Account</a></li>
+      <li><a href="{{ url('logout') }}">Logout</a></li>
 
       @else
       <li  class="{{Request::is('Sign Up') ? 'active' : ''}}"><a href="/signup">Sign up</a></li>

@@ -1,6 +1,10 @@
 <?php
 use App\Task;
 use App\Http\Auth;
+use Illuminate\Http\Request;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +48,30 @@ Route::group(['middleware' => ['web']], function(){
     });
 
 
+    Route::post('/edit-modal', [
+        'uses' => 'PostController@postEditPost',
+        'as' => 'edit-modal'
+    ]);
 
+    Route::get('/account', [
+        'uses' => 'UserController@getAccount',
+        'as' => 'account'
+    ]);
+    
+    Route::post('/account.save', [
+        'uses' => 'UserController@postSaveAccount',
+        'as' => 'account.save'
+    ]);
+    
+    Route::get('/userimage/{filename}', [
+        'uses' => 'UserController@getUserImage',
+        'as' => 'account.image'
+    ]);
+
+    Route::post('/like', [
+        'uses' => 'PostController@postLikePost',
+        'as' => 'like'
+    ]);
 
     Route::get('/dashboard', 'PostController@getDashboard')->Middleware('authenticated');
     Route::get('/tasklist', 'TaskController@getTasks')->Middleware('authenticated');
@@ -60,5 +87,6 @@ Route::group(['middleware' => ['web']], function(){
     Route::get('logout', 'UserController@postLogout');
     Route::post('/postdashboard', 'PostController@postCreatePost')->Middleware('authenticated');
     Route::get('/post-delete/{postid}', 'PostController@deletePost')->Middleware('authenticated');
-
+    Route::post('/postdashboard', 'PostController@postCreatePost')->Middleware('authenticated');
+    
 });

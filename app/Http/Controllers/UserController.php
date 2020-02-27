@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -24,7 +27,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('/dashboard')->with('signup-success', 'Your account has been created.');
+        return redirect('/login')->with('signup-success', 'Your account has been created.');
     }
 
     public function postSignIn(Request $request)
@@ -46,4 +49,34 @@ class UserController extends Controller
         Auth::logout();
         return redirect('/')->with('logout-success', 'You have succesfully logged out.');
     }
+
+    public function getAccount()
+    {
+        return view('account', ['user' => Auth::user()]);
+    }
+
+    public function postSaveAccount(Request $request)
+    {
+        $this->validate($request, [
+           'fullname' => 'required|max:120'
+        ]);
+
+        $user = Auth::user();
+        $user->fullname = $request['fullname'];
+        $user->update();
+        $file = $request->file('image');
+        $filename = $request['fullname'] . '-' . $user->id . '.jpg';
+        
+        if ($file) {
+            Storage::disk('local')->put($filename, File::get($file));
+        }
+        return redirect('/account')->with('account-update', 'Your account has been updated.');
+    }
+
+    public function getUserImage($filename)
+    {
+        $file = Storage::disk('local')->get($filename);
+        return new Response($file, 200);
+    }
+
 }
