@@ -24,7 +24,7 @@
     "dependencies": {
         "bootstrap": "^4.4.1",
         "bootstrap-sass": "^3.4.1",
-        "node-sass": "^4.13.0",
+        "node-sass": "^4.13.1",
         "saw": "^1.0.7"
     }
 }
